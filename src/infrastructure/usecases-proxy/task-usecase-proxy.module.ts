@@ -8,6 +8,7 @@ import {
   CreateTaskUseCase,
   DeleteTaskUseCase,
   GetTaskUseCase,
+  UpdateTaskStatusUseCase,
   UpdateTaskUseCase,
 } from '@usecases/index';
 
@@ -19,6 +20,7 @@ export class TaskUsecasesProxyModule {
   static UPDATE_TASK_USECASE = 'UpdateTaskUseCase';
   static DELETE_TASK_USECASE = 'DeleteTaskUseCase';
   static GET_TASK_USECASE = 'GetTaskUseCase';
+  static UPDATE_TASK_STATUS_USECASE = 'UpdateTaskStatusUseCase';
 
   static register(): DynamicModule {
     return {
@@ -48,12 +50,19 @@ export class TaskUsecasesProxyModule {
           useFactory: (taskRepository: TaskRepository) =>
             new UseCaseProxy(new GetTaskUseCase(taskRepository)),
         },
+        {
+          inject: [TaskRepository],
+          provide: TaskUsecasesProxyModule.UPDATE_TASK_STATUS_USECASE,
+          useFactory: (taskRepository: TaskRepository) =>
+            new UseCaseProxy(new UpdateTaskStatusUseCase(taskRepository)),
+        },
       ],
       exports: [
         TaskUsecasesProxyModule.CREATE_TASK_USECASE,
         TaskUsecasesProxyModule.UPDATE_TASK_USECASE,
         TaskUsecasesProxyModule.DELETE_TASK_USECASE,
         TaskUsecasesProxyModule.GET_TASK_USECASE,
+        TaskUsecasesProxyModule.UPDATE_TASK_STATUS_USECASE,
       ],
     };
   }

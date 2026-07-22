@@ -1,6 +1,7 @@
 import { CreateTaskDto } from '@infrastructure/dtos/task/create-task.dto';
 import { DeleteTaskDto } from '@infrastructure/dtos/task/delete-task.dto';
 import { GetTaskDto } from '@infrastructure/dtos/task/get-task.dto';
+import { UpdateTaskStatusDto } from '@infrastructure/dtos/task/update-task-status.dto';
 import { UpdateTaskDto } from '@infrastructure/dtos/task/update-task.dto';
 import { TaskUsecasesProxyModule } from '@infrastructure/usecases-proxy/task-usecase-proxy.module';
 import { UseCaseProxy } from '@infrastructure/usecases-proxy/usecases-proxy';
@@ -19,6 +20,7 @@ import {
   CreateTaskUseCase,
   DeleteTaskUseCase,
   GetTaskUseCase,
+  UpdateTaskStatusUseCase,
   UpdateTaskUseCase,
 } from '@usecases/index';
 
@@ -34,6 +36,8 @@ export class TaskController {
     private readonly deleteTaskUseCase: UseCaseProxy<DeleteTaskUseCase>,
     @Inject(TaskUsecasesProxyModule.GET_TASK_USECASE)
     private readonly getTaskUseCase: UseCaseProxy<GetTaskUseCase>,
+    @Inject(TaskUsecasesProxyModule.UPDATE_TASK_STATUS_USECASE)
+    private readonly updateTaskStatusUseCase: UseCaseProxy<UpdateTaskStatusUseCase>,
   ) {}
 
   @Post('/create')
@@ -57,6 +61,14 @@ export class TaskController {
   @Get()
   async get(@Query() query: GetTaskDto) {
     const task = await this.getTaskUseCase.getUseCase().execute({ query });
+    return task;
+  }
+
+  @Put('/update-status')
+  async updateStatus(@Body() body: UpdateTaskStatusDto) {
+    const task = await this.updateTaskStatusUseCase
+      .getUseCase()
+      .execute({ body });
     return task;
   }
 }

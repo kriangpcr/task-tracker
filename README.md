@@ -98,7 +98,22 @@ Base URL Prefix: `/api`
 
 ---
 
-### 4. Delete Task (ลบงาน)
+### 4. Update Task Status (อัปเดตสถานะงาน)
+
+- **Method:** `PUT`
+- **Path:** `/api/task/update-status`
+- **Content-Type:** `application/json`
+- **Body:**
+  ```json
+  {
+    "id": "task-uuid-here",
+    "status": "IN_PROGRESS"
+  }
+  ```
+
+---
+
+### 5. Delete Task (ลบงาน)
 
 - **Method:** `DELETE`
 - **Path:** `/api/task/delete`
