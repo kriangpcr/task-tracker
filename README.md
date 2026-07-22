@@ -2,6 +2,9 @@
 
 ระบบ API สำหรับจัดการงาน (Task Tracker) สร้างด้วย **NestJS** โดยปรับใช้สถาปัตยกรรม Clean Architecture / Hexagonal Architecture
 
+- **Project URL:** https://roadmap.sh/projects/task-tracker
+- **Repository URL:** https://github.com/kriangpcr/task-tracker
+
 ---
 
 ## 🛠️ Tech Stack & Architecture
